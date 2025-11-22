@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coral Reef Protection NGO</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eaf9ff;
+    scroll-behavior: smooth;
+  }
+  .header {
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .nav a:hover {
+    color: #caf0f8;
+  }
+  section {
+    padding-top: 55px;
+    margin-top: -55px;
+  }
+  .hero {
+    position: relative;
+    height: 100vh;
+    overflow: auto;
+  }
+  .hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(65%);
+  }
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+  .hero-text h1 {
+    font-size: 55px;
+    text-shadow: 2px 2px 15px black;
+    color: white;
+  }
+  .action-btn {
+    background: #043083;
+    color: white;
+    padding: 14px 28px;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .action-btn:hover {
+    transform: scale(1.05);
+  }
+ 
+  .about-flip-container {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+  .about-flip-card {
+    background-color: transparent;
+    width: 220px;
+    height: 220px;
+    perspective: 1000px;
+  }
+  .about-flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+  }
+  .about-flip-card:hover .about-flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .about-flip-front,
+  .about-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 6px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+      linear-gradient(135deg, #00eaff, #0077b6, #023e8a) border-box;
+    box-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff, 0 0 40px rgba(0, 119, 182, 0.7);
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+  .about-flip-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about-flip-back {
+    background: rgba(0, 119, 182, 0.95);
+    color: white;
+    transform: rotateY(180deg);
+    padding: 25px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .facts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  .fact-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.11);
+    width: 280px;
+    text-align: center;
+    padding: 0 0 18px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.18s;
+    position: relative;
+  }
+  .fact-card:hover {
+    transform: translateY(-6px) scale(1.025);
+    box-shadow: 0 8px 32px rgba(0, 174, 255, 0.09);
+  }
+  .fact-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 18px 18px 0 0;
+  }
+  .fact-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 18px 0 4px 0;
+    color: #023e8a;
+    min-height: 44px;
+  }
+  .fact-desc {
+    font-size: 15px;
+    color: #324;
+    margin-bottom: 13px;
+  }
+  .fact-more {
+    display: none;
+    background: #e0f4ff;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: left;
+    font-size: 15px;
+    margin-top: 7px;
+    color: #1a2b34;
+  }
+  .learn-btn {
+    border: 1.5px solid #0077b6;
+    border-radius: 12px;
+    background: white;
+    color: #0077b6;
+    padding: 9px 20px;
+    font-size: 15px;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .learn-btn:hover {
+    background: #caf0f8;
+    color: #023e8a;
+    border-color: #00b4d8;
+  }
+  .card {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+  }
+  .easy-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #e5eaff;
+    color: #4a4aff;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .start-btn {
+    float: right;
+    padding: 8px 15px;
+    background: #009688;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .start-btn:hover {
+    background: #00796b;
+  }
+
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .popup-content {
+    background: white;
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    text-align: left;
+  }
+  .popup h3 {
+    margin-top: 0;
+    color: #00796b;
+  }
+  .popup label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+  }
+  .popup input,
+  .popup select,
+  .popup textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: #009688;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .close-btn {
+    background: #d9534f;
+    margin-top: 10px;
+  }
+
+  .events-section {
+    padding: 50px 20px;
+    background: white;
+    text-align: center;
+  }
+  .event-card {
+    background: #e0f4ff;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 650px;
+    text-align: left;
+    border-left: 6px solid #0077b6;
+  }
+  .event-date {
+    font-weight: bold;
+    color: #023e8a;
+    margin-bottom: 10px;
+  }
+  #contact {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .contact-box {
+    width: 420px;
+    margin: auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    align-items: center;
+  }
+  .input-group {
+    text-align: left;
+  }
+  .contact-box input,
+  .contact-box textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #cfe8ff;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  .contact-btn {
+    padding: 14px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  #donation-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+  }
+  #donation-popup.active {
+    display: flex;
+  }
+  .popup-box {
+    background: white;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
+    animation: zoomIn 0.3s ease-out;
+  }
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .popup-box input,
+  .popup-box select,
+  .popup-box textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    box-sizing: border-box;
+  }
+  .close-link {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    color: #0077b6;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .developers-section {
+    padding: 60px 15px;
+    background: #f6fcff;
+    text-align: center;
+  }
+  .dev-title {
+    color: #045b7b;
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .dev-cards {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  .dev-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    width: 300px;
+    text-align: center;
+    padding: 32px 20px 28px 20px;
+    transition: transform 0.14s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .dev-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 32px rgba(0, 174, 255, 0.1);
+  }
+  .dev-photo {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #eee;
+    object-fit: cover;
+    margin-bottom: 16px;
+  }
+  .dev-name {
+    font-size: 21px;
+    font-weight: bold;
+    color: #0077b6;
+    margin-bottom: 5px;
+  }
+  .dev-role {
+    font-size: 16px;
+    color: #034;
+    margin-bottom: 15px;
+  }
+  .dev-desc {
+    font-size: 15px;
+    color: #264;
+  }
+  footer {
+    background: #0077b6;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+
+ 
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px 20px;
+    }
+    .nav {
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .nav a {
+      margin-left: 0;
+      font-size: 16px;
+    }
+    .hero-text h1 {
+      font-size: 36px;
+    }
+    .hero-text h2 {
+      font-size: 22px;
+    }
+    .about-flip-container {
+      gap: 40px;
+      justify-content: center;
+    }
+    .about-flip-card {
+      width: 180px;
+      height: 180px;
+    }
+    .facts-grid {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .fact-card {
+      width: 100%;
+      max-width: 320px;
+    }
+    .dev-cards {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .dev-card {
+      width: 100%;
+      max-width: 320px;
+      padding: 20px;
+    }
+    .container, .events-section, #contact {
+      padding: 20px 10px;
+      width: 95%;
+      margin: auto;
+    }
+  }
+</style>
+<script>
+  function openDonation() {
+    document.getElementById("donation-popup").classList.add("active");
+  }
+
+  function closeDonation() {
+    document.getElementById("donation-popup").classList.remove("active");
+  }
+
+  function submitDonation() {
+    
+    const name = document.getElementById("donorName").value.trim();
+    const email = document.getElementById("donorEmail").value.trim();
+    const amount = document.getElementById("donationAmount").value.trim();
+    const payment = document.getElementById("paymentMethod").value;
+
+    if (!name || !email || !amount || !payment) {
+      alert("Please fill all required fields and select a payment method.");
+      return;
+    }
+
+    alert(
+      "Thank you for your donation, " +
+        name +
+        "!\nDonation Amount: ₹" +
+        amount +
+        "\nWe appreciate your support."
+    );
+    closeDonation();
+
+    
+    document.getElementById("donationForm").reset();
+  }
+
+  function openForm() {
+    document.getElementById("popupForm").style.display = "flex";
+  }
+  function closeForm() {
+    document.getElementById("popupForm").style.display = "none";
+  }
+  function submitForm() {
+    let name = document.getElementById("name").value;
+    let contact = document.getElementById("contactNumber").value;
+    let date = document.getElementById("date").value;
+    if (name === "" || contact === "" || date === "") {
+      alert("Please fill all fields.");
+      return;
+    }
+    alert(
+      "Submitted Successfully!\nName: " +
+        name +
+        "\nContact: " +
+        contact +
+        "\nDate: " +
+        date
+    );
+    closeForm();
+  }
+  function openVolunteer() {
+    document.getElementById("volunteerPopup").style.display = "flex";
+  }
+  function closeVolunteer() {
+    document.getElementById("volunteerPopup").style.display = "none";
+  }
+  function submitVolunteer() {
+    let name = document.getElementById("vName").value;
+    let email = document.getElementById("vEmail").value;
+    let phone = document.getElementById("vPhone").value;
+    let eventName = document.getElementById("vEvent").value;
+    let date = document.getElementById("vDate").value;
+    if (name === "" || email === "" || phone === "" || date === "") {
+      alert("Please fill all fields before submitting.");
+      return;
+    }
+    alert(
+      "Thank you for volunteering!\n\nName: " +
+        name +
+        "\nEmail: " +
+        email +
+        "\nPhone: " +
+        phone +
+        "\nEvent: " +
+        eventName +
+        "\nDate: " +
+        date
+    );
+    closeVolunteer();
+  }
+
+  function toggleFact(idx) {
+    var more = document.getElementById("fact-more-" + idx);
+    var btn = document.getElementById("learn-btn-" + idx);
+    if (more.style.display === "none" || more.style.display === "") {
+      more.style.display = "block";
+      btn.innerText = "Show Less";
+    } else {
+      more.style.display = "none";
+      btn.innerText = "Learn More";
+    }
+  }
+</script>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🪸 Coral Reef Protection NGO</div>
+    <div class="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#YAC">YAC</a>
+      <a href="#events">Events</a>
+      <a href="#contact">Contact</a>
+      <a href="#developers">Developers</a>
+    </div>
+  </div>
+
+  <div class="hero" id="home">
+    <video autoplay muted loop>
+      <source src="c:\Users\SAMSUNG\Downloads\12645451_2160_3840_30fps.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-text">
+      <h1>Save Our Coral Reefs — Before It's Too Late</h1><br />
+      <h2>50% of the world's coral reefs have already disappeared.</h2><br /><br />
+      <a onclick="openDonation()" class="action-btn">Take Action Now</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <center>
+      <h2 style="font-size: 32px; color: #023e8a;">About Our NGO</h2>
+    </center>
+    <center>
+      <p style="font-size: 18px;">
+        We work to protect coral reefs through restoration, conservation and awareness.
+      </p>
+    </center>
+    <div class="about-flip-container">
+      <div class="about-flip-card">
+        <div class="about-flip-card-inner">
+          <div class="about-flip-front">
+            <img src="c:\Users\SAMSUNG\Downloads\WhatsApp Image 2025-11-19 at 18.31.17_302db65b.jpg" alt="Coral Reef" />
+          </div>
+          <div class="about-flip-back">
+            <h3>Who We Are</h3>
+            <p>
+              We are a CoralReef Protection NGO protecting and restoring coral ecosystems through scientific research and
+              community action.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="about-flip-card">
+        <div class="about-flip-card-inner">
+          <div class="about-flip-front">
+            <img src="C:\Users\SAMSUNG\Downloads\WhatsApp Image 2025-11-19 at 18.30.50_83019a18.jpg" alt="Coral Reef Restoration" />
+          </div>
+          <div class="about-flip-back">
+            <h3>What We Do</h3>
+            <p>We conduct coral planting, reef restoration projects, underwater clean-ups, and marine life preservation programs.</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-flip-card">
+        <div class="about-flip-card-inner">
+          <div class="about-flip-front">
+            <img src="C:\Users\SAMSUNG\Downloads\WhatsApp Image 2025-11-19 at 18.31.47_e6f2cb70.jpg" alt="Sea Turtle" />
+          </div>
+          <div class="about-flip-back">
+            <h3>Why It Matters</h3>
+            <p>
+              Coral reefs support 25% of marine life and protect our coastlines. Saving them ensures a sustainable future for
+              our planet.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <h1 style="text-align: center; color: #005f73; margin-bottom: 30px;">Shocking Facts About Coral Reefs</h1>
+    <div class="facts-grid">
+      <div class="fact-card">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=60" alt="Less than 1%" />
+        <div class="fact-title">Coral Reefs Cover Less Than 1%</div>
+        <div class="fact-desc">But they support 25% of all marine life.</div>
+        <button class="learn-btn" id="learn-btn-0" onclick="toggleFact(0)">Learn More</button>
+        <div class="fact-more" id="fact-more-0">
+          Coral reefs occupy less than 1% of Earth's oceans, yet they are vital for maintaining biodiversity, acting as nurseries and safe havens for thousands of marine species. Their unique structure also helps to buffer coastlines against storms and erosion.
+        </div>
+      </div>
+      <div class="fact-card">
+        <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=60" alt="Half Gone" />
+        <div class="fact-title">Half of Coral Reefs Are Gone</div>
+        <div class="fact-desc">50% lost in the past 30 years.</div>
+        <button class="learn-btn" id="learn-btn-1" onclick="toggleFact(1)">Learn More</button>
+        <div class="fact-more" id="fact-more-1">
+          Over the last three decades, pollution, unsustainable fishing practices, climate change, and coral bleaching events have destroyed half of the world’s reefs. Urgent action is needed to halt further loss.
+        </div>
+      </div>
+      <div class="fact-card">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=60" alt="1 Billion Depend" />
+        <div class="fact-title">1 Billion Depend on Reefs</div>
+        <div class="fact-desc">Food, income and protection.</div>
+        <button class="learn-btn" id="learn-btn-2" onclick="toggleFact(2)">Learn More</button>
+        <div class="fact-more" id="fact-more-2">
+          Coral reefs support fishing, tourism, and defense against storms for a billion people globally. Many communities rely on reefs for their livelihood and daily sustenance.
+        </div>
+      </div>
+      <div class="fact-card">
+        <img src="https://images.unsplash.com/photo-1505764706515-aa95265c5abc?auto=format&fit=crop&w=600&q=60" alt="Recovery" />
+        <div class="fact-title">Reefs Can Recover</div>
+        <div class="fact-desc">Recovery takes 10–20 years.</div>
+        <button class="learn-btn" id="learn-btn-3" onclick="toggleFact(3)">Learn More</button>
+        <div class="fact-more" id="fact-more-3">
+          If protected and left undisturbed, damaged coral reefs may recover and regrow within 10–20 years. Restoration projects can help speed up this process.
+        </div>
+      </div>
+      <div class="fact-card">
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=60" alt="Ocean Acidification" />
+        <div class="fact-title">Ocean Acidification</div>
+        <div class="fact-desc">CO₂ makes oceans acidic.</div>
+        <button class="learn-btn" id="learn-btn-4" onclick="toggleFact(4)">Learn More</button>
+        <div class="fact-more" id="fact-more-4">
+          Increased carbon dioxide in our atmosphere is absorbed by oceans, making them more acidic. Acidic environments weaken coral skeletons, making them more vulnerable to damage and reducing reef resilience.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="container" id="YAC">
+    <h1>Youth Action Center</h1>
+    <p class="subtitle">Small actions by young people can make a big difference for coral reefs</p>
+    <div class="card">
+      <span class="easy-tag">Easy</span>
+      <button class="start-btn" onclick="openForm()">Start Today</button>
+      <h2>Reduce Plastic Use</h2>
+      <p>Plastic pollution smothers coral reefs. Use reusable bags, bottles, and containers.</p>
+    </div>
+    <div class="card">
+      <span class="easy-tag">Easy</span>
+      <button class="start-btn" onclick="openForm()">Start Today</button>
+      <h2>Choose Reef-Safe Sunscreen</h2>
+      <p>Chemicals in regular sunscreen bleach corals. Look for 'reef-safe' labels.</p>
+    </div>
+    <div class="card">
+      <span class="easy-tag">Easy</span>
+      <button class="start-btn" onclick="openForm()">Start Today</button>
+      <h2>Spread Awareness</h2>
+      <p>Educate friends and family about coral reef conservation through social media.</p>
+    </div>
+    <div class="popup" id="popupForm">
+      <div class="popup-content">
+        <h3>Start Today Form</h3>
+        <label>Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" />
+        <label>Contact Number:</label>
+        <input type="tel" id="contactNumber" placeholder="Enter contact number" />
+        <label>Select Date:</label>
+        <input type="date" id="date" />
+        <button class="submit-btn" onclick="submitForm()">Submit</button>
+        <button class="submit-btn close-btn" onclick="closeForm()">Close</button>
+      </div>
+    </div>
+  </section>
+  <br /><br />
+
+  <section class="events-section" id="events">
+    <h2>Upcoming Events</h2>
+    <div class="event-card">
+      <h3>Beach Cleanup Drive</h3>
+      <p class="event-date">📅 22 November 2025</p>
+      <p>Join our volunteers to clean the coastline.</p>
+      <button class="contact-btn" onclick="openVolunteer()">Volunteer Now</button>
+    </div>
+    <div class="event-card">
+      <h3>Coral Awareness Workshop</h3>
+      <p class="event-date">📅 5 December 2025</p>
+      <p>Learn about coral bleaching and protection.</p>
+      <button class="contact-btn" onclick="openVolunteer()">Volunteer Now</button>
+    </div>
+    <div class="event-card">
+      <h3>Snorkeling for Conservation</h3>
+      <p class="event-date">📅 18 December 2025</p>
+      <p>A guided snorkel experience with marine biologists.</p>
+      <button class="contact-btn" onclick="openVolunteer()">Volunteer Now</button>
+    </div>
+    <div class="popup" id="volunteerPopup">
+      <div class="popup-content">
+        <h3>Volunteer Registration</h3>
+        <label>Full Name:</label>
+        <input type="text" id="vName" placeholder="Enter your name" />
+        <label>Email Address:</label>
+        <input type="email" id="vEmail" placeholder="Enter your email" />
+        <label>Phone Number:</label>
+        <input type="tel" id="vPhone" placeholder="Enter contact number" />
+        <label>Select Event:</label>
+        <select id="vEvent">
+          <option>Beach Cleanup Drive</option>
+          <option>Coral Awareness Workshop</option>
+          <option>Snorkeling for Conservation</option>
+        </select>
+        <label>Select Date:</label>
+        <input type="date" id="vDate" />
+        <button class="submit-btn" onclick="submitVolunteer()">Submit</button>
+        <button class="submit-btn close-btn" onclick="closeVolunteer()">Close</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>We would love to hear from you!</p>
+    <div class="contact-box">
+      <form>
+        <div class="input-group">
+          <label>Your Name</label>
+          <input type="text" required />
+        </div>
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" required />
+        </div>
+        <div class="input-group">
+          <label>Your Message</label>
+          <textarea rows="5" required></textarea>
+        </div>
+        <button class="contact-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="developers-section" id="developers">
+    <div class="dev-title">Meet the Developers</div>
+    <div class="dev-cards">
+      <div class="dev-card">
+        <img class="dev-photo" src="C:\Users\SAMSUNG\OneDrive\Pictures\my photo.jpg" alt="Kaveri Bafna" />
+        <div class="dev-name">Kaveri Bafna</div>
+        <div class="dev-role">Student Web Designer</div>
+        <div class="dev-desc">
+          Kaveri is a a first year student at Sakec College and creates engaging web experiences using modern CSS3 and
+          JavaScript. He loves crafting accessible interfaces and is passionate about ocean conservation.
+        </div>
+      </div>
+      <div class="dev-card">
+        <img class="dev-photo" src="C:\Users\SAMSUNG\Downloads\vrishti.jpg" alt="Vrishti Anavadia" />
+        <div class="dev-name">Vrishti Anavadia</div>
+        <div class="dev-role">Student Web Designer</div>
+        <div class="dev-desc">
+          I am Vrishti Anavadia a first year student at Sakec College. Currently working on a coral reef protection project with
+          an NGO, aiming to raise awareness and develop solutions to preserve marine solutions
+        </div>
+      </div>
+      <div class="dev-card">
+        <img class="dev-photo" src="C:\Users\SAMSUNG\Downloads\anushka.jpg" alt="Amaan Khan" />
+        <div class="dev-name">Anushka Katkar</div>
+        <div class="dev-role">Student Web Designer</div>
+        <div class="dev-desc">
+          I am Anushka Katkar  a first year B.Tech IT student at SAKEC.I am working on developing a website for a coral reef
+          protection NGO, combining technical skills with my interest in marine conservation.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="donation-popup">
+    <div class="popup-box">
+      <h3>Make a Donation</h3>
+      <form id="donationForm" onsubmit="event.preventDefault(); submitDonation();">
+        <input type="text" id="donorName" placeholder="Full Name" required />
+        <input type="email" id="donorEmail" placeholder="Email Address" required />
+        <input type="number" id="donationAmount" placeholder="Donation Amount (₹)" required min="1" />
+        <select id="paymentMethod" required>
+          <option value="">Select Payment Method</option>
+          <option>UPI</option>
+          <option>Card</option>
+          <option>Net Banking</option>
+          <option>PayPal</option>
+        </select>
+        <textarea rows="3" placeholder="Message (optional)"></textarea>
+        <button class="contact-btn" type="submit">Donate Now</button>
+        <a class="close-link" onclick="closeDonation()">Close</a>
+      </form>
+    </div>
+  </div>
+
+  <footer>© 2025 CoralReef Protect NGO | All Rights Reserved</footer>
+</body>
+</html>
